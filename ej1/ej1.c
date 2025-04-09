@@ -1,4 +1,5 @@
 #include "ej1.h"
+#include <stdio.h>
 
 /**
  * Crea una lista doblemente enlazada vacía.
