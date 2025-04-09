@@ -1,13 +1,14 @@
-def comparar_archivos(path1, path2):
+def comparar_archivos(path1, path2, max_diferencias=None):
     """
-    Compara dos archivos de texto carácter a carácter.
+    Compara dos archivos de texto línea por línea y muestra las primeras N diferencias.
     
     Parámetros:
         path1 (str): Ruta al primer archivo.
         path2 (str): Ruta al segundo archivo.
+        max_diferencias (int, opcional): Número máximo de diferencias a mostrar. Si es None, muestra todas.
     
     Imprime:
-        La línea y posición del carácter donde existen diferencias.
+        Las diferencias encontradas entre los archivos, hasta un máximo de N diferencias.
     """
     try:
         # Abrir ambos archivos con codificación utf-8
@@ -18,26 +19,29 @@ def comparar_archivos(path1, path2):
 
         # Determinar la cantidad máxima de líneas a comparar
         total_lineas = max(len(lineas1), len(lineas2))
+        diferencias_encontradas = 0
 
         for i in range(total_lineas):
             # Obtener la línea correspondiente, o una cadena vacía si el archivo ya terminó
             linea1 = lineas1[i].rstrip('\n') if i < len(lineas1) else ""
             linea2 = lineas2[i].rstrip('\n') if i < len(lineas2) else ""
 
-            # Determinar el máximo número de caracteres en la línea actual
-            total_caracteres = max(len(linea1), len(linea2))
+            # Comparar las líneas completas
+            if linea1 != linea2:
+                print(f"Diferencia en línea {i + 1}:")
+                print(f"Archivo 1: {linea1}")
+                print(f"Archivo 2: {linea2}")
+                print("-" * 50)
+                diferencias_encontradas += 1
 
-            for j in range(total_caracteres):
-                # Obtener el carácter o una cadena vacía en caso de que la línea no llegue a esa posición
-                char1 = linea1[j] if j < len(linea1) else ""
-                char2 = linea2[j] if j < len(linea2) else ""
-                
-                if char1 != char2:
-                    print(f"Diferencia en línea {i + 1}, posición {j + 1}: '{char1}' vs '{char2}'")
+                # Detenerse si se alcanza el máximo de diferencias permitidas
+                if max_diferencias is not None and diferencias_encontradas >= max_diferencias:
+                    print(f"Se alcanzó el límite de {max_diferencias} diferencias.")
+                    break
     except FileNotFoundError as fnf_error:
         print(f"Error: {fnf_error}")
     except Exception as e:
         print(f"Ocurrió un error: {e}")
 
 # Ejemplo de uso:
-comparar_archivos("valen.txt", "ej1/salida.propia.ej1.txt")
+comparar_archivos("ej1/pettazi_assembly_my_bomb.txt", "bomb56/michanie_assembly_my_bomb.txt", max_diferencias=500)
