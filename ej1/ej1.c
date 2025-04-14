@@ -5,9 +5,7 @@
  * Crea una lista doblemente enlazada vacía.
  */
 string_proc_list* string_proc_list_create(void){
-    // Reservamos memoria para la lista
     string_proc_list* list = (string_proc_list*)malloc(sizeof(string_proc_list));
-    // Inicializamos punteros
     list->first = NULL;
     list->last  = NULL;
     return list;
@@ -18,12 +16,9 @@ string_proc_list* string_proc_list_create(void){
  * El nodo NO copia la cadena, sino que la apunta directamente.
  */
 string_proc_node* string_proc_node_create(uint8_t type, char* hash){
-
     string_proc_node* node = (string_proc_node*)malloc(sizeof(string_proc_node));
-
     node->type = type;
     node->hash = hash;
-
     node->next = NULL;
     node->previous = NULL;
     return node;
@@ -34,19 +29,14 @@ string_proc_node* string_proc_node_create(uint8_t type, char* hash){
  * No se copia la cadena hash, sino que el nodo apunta directamente a ella.
  */
 void string_proc_list_add_node(string_proc_list* list, uint8_t type, char* hash){
-    // Creamos el nodo
     string_proc_node* new_node = string_proc_node_create(type, hash);
-
-    // Si la lista está vacía, first y last apuntarán a este nuevo nodo
     if(list->first == NULL){
         list->first = new_node;
         list->last  = new_node;
     }
     else{
-        // Enlazamos el último nodo con el nuevo
         list->last->next = new_node;
         new_node->previous = list->last;
-        // Actualizamos el puntero last
         list->last = new_node;
     }
 }
@@ -61,24 +51,17 @@ void string_proc_list_add_node(string_proc_list* list, uint8_t type, char* hash)
  *    // result podría terminar siendo "inicio:nodoHash1nodoHash2..."
  */
 char* string_proc_list_concat(string_proc_list* list, uint8_t type , char* hash){
-    // Empezamos con una copia del hash base
-    // (str_concat("", hash) produce una copia de 'hash' en la variable 'result')
     char* result = str_concat("", hash);
 
-    // Recorremos la lista
     string_proc_node* current = list->first;
     while(current != NULL){
-        // Si el tipo coincide, concatenamos su hash
         if(current->type == type){
-            // Guardamos el antiguo result para poder liberarlo
             char* old_result = result;
             result = str_concat(result, current->hash);
-            free(old_result);  // Liberamos la cadena anterior para evitar fugas
+            free(old_result);  
         }
         current = current->next;
     }
-
-    // Devolvemos la nueva cadena con la concatenación
     return result;
 }
 
