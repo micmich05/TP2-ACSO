@@ -1,9 +1,9 @@
-; /** defines bool y puntero **/
 %define NULL 0
 %define TRUE 1
 %define FALSE 0
 
 section .data
+empty_string: db 0
 
 section .text
 
@@ -12,7 +12,6 @@ global string_proc_node_create_asm
 global string_proc_list_add_node_asm
 global string_proc_list_concat_asm
 
-; FUNCIONES auxiliares que pueden llegar a necesitar:
 extern malloc
 extern free
 extern str_concat
@@ -97,8 +96,6 @@ string_proc_list_add_node_asm:
         nop
         leave
         ret
-.LC0:
-        .string ""
 
 string_proc_list_concat_asm:
         push    rbp
@@ -110,7 +107,8 @@ string_proc_list_concat_asm:
         mov     BYTE [rbp-44], al
         mov     rax, QWORD [rbp-56]
         mov     rsi, rax
-        mov     edi, OFFSET FLAT:.LC0
+        ; Aquí se usa la cadena vacía definida en la sección .data:
+        mov     rdi, empty_string
         call    str_concat
         mov     QWORD [rbp-8], rax
         mov     rax, QWORD [rbp-40]
@@ -144,3 +142,4 @@ string_proc_list_concat_asm:
         mov     rax, QWORD [rbp-8]
         leave
         ret
+        
