@@ -18,12 +18,12 @@ string_proc_list* string_proc_list_create(void){
  * El nodo NO copia la cadena, sino que la apunta directamente.
  */
 string_proc_node* string_proc_node_create(uint8_t type, char* hash){
-    // Reservamos memoria para el nodo
+
     string_proc_node* node = (string_proc_node*)malloc(sizeof(string_proc_node));
-    // Asignamos los valores de type y hash
+
     node->type = type;
     node->hash = hash;
-    // Inicializamos punteros a nodos adyacentes
+
     node->next = NULL;
     node->previous = NULL;
     return node;

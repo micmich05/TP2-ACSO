@@ -13,10 +13,12 @@ global string_proc_list_add_node_asm
 global string_proc_list_concat_asm
 
 ; FUNCIONES auxiliares que pueden llegar a necesitar:
+
 extern malloc
 extern free
 extern str_concat
 
+; leave: mov rsp, rbp | pop rbp
 string_proc_list_create_asm:
         push    rbp
         mov     rbp, rsp
