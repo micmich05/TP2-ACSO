@@ -101,12 +101,6 @@ update_existing_list:
         mov     rdx, QWORD [rbp-8]
         mov     QWORD [rax+8], rdx
 
-finish_add_node:
-        nop
-        mov     rsp, rbp
-        pop     rbp
-        ret
-
 string_proc_list_concat_asm:
         push    rbp
         mov     rbp, rsp
