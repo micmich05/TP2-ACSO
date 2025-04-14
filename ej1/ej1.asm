@@ -82,7 +82,9 @@ string_proc_list_add_node_asm:
         mov     rax, QWORD [rbp-24]
         mov     rdx, QWORD [rbp-8]
         mov     QWORD [rax+8], rdx
-        jmp     finish_add_node
+        mov     rsp, rbp
+        pop     rbp
+        ret
 
 update_existing_list:
         ; La lista no está vacía, se actualiza el siguiente de la cola
