@@ -96,12 +96,14 @@ string_proc_list_add_node_asm:
     ret
 
 .update_existing:
-    ;ista no vacía
+    ;lista no vacía
     ;enlaza el nuevo nodo al final de la lista:
+
     mov     rax, QWORD [rbp-24]
     mov     rax, QWORD [rax+8]       ;tail actual
     mov     rdx, QWORD [rbp-8]       ;nuevo nodo
     mov     QWORD [rax], rdx         ;tail->next = nuevo nodo
+    
     ;actualiza el tail de la lista al nuevo nodo:
     mov     rax, QWORD [rbp-24]
     mov     rdx, QWORD [rbp-8]

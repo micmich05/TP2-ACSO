@@ -6,6 +6,8 @@ En esta fase la bomba recibe un string y lo compara con un string esperado usand
 En caso de que sean distintos, la bomba explota. En caso contrario, no explota. Se accedio al registro 
 rsi para obtener el string esperado con un breakpoint en strings_not_equal.
 
+Respuesta: Junta esperencia en la vida  Porque nada ensenha tanto Como el sufrir y el llorar
+
 Fase 2
 Se recibe un string con dos números y después llama a misterio con tres parámetros:
 primer_numero_ingresado, primer_numero_ingresado, segundo_numero_ingresado. Básicamente las condiciones que tienen que cumplirse para que la bomba no explote son:
@@ -14,13 +16,17 @@ primer_numero_ingresado, primer_numero_ingresado, segundo_numero_ingresado. Bás
 Si ambas caracteristicas se cumplen, se pasa la fase 2. Sino, explota.
 Una solucion sencilla es: 2047 (11 unos exactamente) y 2147485695 (en ese orden)
 
+Respuesta: 2047 2147485695
+
 Fase 3:
 Se reciben un string y un numero entero. La fase llama a la funcion cuenta, que accede al archivo palabras.txt (que esta ordenado alfabeticamente)
-y hace una busqueda binaria sobre este. El target de la busqueda es el string pasado por parametro. La funcion tiene una cantidad de iteraciones (counter) maxima 
-que es 11, si se pasa de ese valor (no encuentra la palabra), explota. Cuando termina la busqueda, se fija si se hicieron al menos 6 iteraciones. Sino, explota. 
-Si se cumple todo lo anterior, se fija si el numero entero pasado como parametro es igual a la cantidad de iteraciones que realizo, sino explota.
+y hace una busqueda binaria sobre este. El target de la busqueda es el string pasado por parametro. La funcion tiene una cantidad de iteraciones (counter), tienen que ser menos de 11
+si se pasa de ese valor (no encontro todavia la palabra), explota. Si termina la busqueda, se fija si se hicieron mas de 6 iteraciones. Sino, explota. 
+Si pasa todo lo anterior, se fija si el numero entero pasado como parametro es igual a la cantidad de iteraciones que realizo, sino explota.
 Si todo esto se cumple, se pasa la fase 3. Para obtener una solucion valida, se corrio un scrypt de python que simulaba la busqueda binaria e imprimia las soluciones.
-La elegida fue encolar 9.
+La elegida fue forrear 10. La funcion que genera las soluciones es soluciones_validas en phase_3_aux.
+
+Respuesta: forrear 10
 
 Fase 4:
 Se reciben dos numeros enteros y se ejecuta la fase. La lógica es la siguiente:
@@ -31,14 +37,17 @@ y usa ese número como nuevo índice. Continúa con esto hasta hacer exactamente
 Para resolver la fase, se accedio al arreglo en memoria: [7, 4, 6, 8, 13, 10, 15, 9, 0, 12, 3, 5, 2, 11, 1, 14]
 Como quiero llegar al 15 en exactamente 6 pasos:
 
-Si quiero 15 --> 6 
+Si quiero 15 --> necesito llegar al 6 (indice en el arreglo)
 Si quiero un 6 --> 2
-Si quiero un 2 –> 12
-Si quiero un 12 → 9
-Si quiero un 9 → paso 7
-Si quiero un 7 → paso 0
+Si quiero un 2 -–> 12
+Si quiero un 12 --> 9
+Si quiero un 9 --> 7
+Si quiero un 7 --> paso 0
+
+suma final = 7 + 9 + 12 + 2 + 6 + 15
 
 Por lo tanto, la solucion es:  0 (índice) 51 (suma final)
+
 Respuesta: 0 51
 
 
