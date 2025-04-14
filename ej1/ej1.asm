@@ -122,3 +122,37 @@ string_proc_list_concat_asm:
         mov     rax, QWORD [rbp-40]
         mov     rax, QWORD [rax]         ; inicio de la lista
         mov     QWORD [rbp-16], rax
+
+concat_loop_check:
+        cmp     QWORD [rbp-16], 0
+        jne     concat_process_node    ; si aún quedan nodos, procesa el nodo actual
+        mov     rax, QWORD [rbp-8]
+        mov     rsp, rbp
+        pop     rbp
+        ret
+
+concat_process_node:
+        ; Procesa el nodo actual. Se compara el carácter almacenado en el nodo con el carácter de comparación.
+        mov     rax, QWORD [rbp-16]
+        movzx   eax, BYTE [rax+16]
+        cmp     BYTE [rbp-44], al
+        jne     concat_advance_node    ; si no coincide, salta a avanzar al siguiente nodo
+        mov     rax, QWORD [rbp-8]
+        mov     QWORD [rbp-24], rax      ; guarda temporalmente el string acumulado
+        mov     rax, QWORD [rbp-16]
+        mov     rdx, QWORD [rax+24]      ; obtiene el string del nodo
+        mov     rax, QWORD [rbp-8]
+        mov     rsi, rdx
+        mov     rdi, rax
+        call    str_concat             ; concatena el string del nodo al acumulado
+        mov     QWORD [rbp-8], rax       ; actualiza el acumulado
+        mov     rax, QWORD [rbp-24]
+        mov     rdi, rax
+        call    free                   ; libera la memoria del string anterior
+
+concat_advance_node:
+        ; Avanza al siguiente nodo de la lista
+        mov     rax, QWORD [rbp-16]
+        mov     rax, QWORD [rax]
+        mov     QWORD [rbp-16], rax
+        jmp     concat_loop_check
