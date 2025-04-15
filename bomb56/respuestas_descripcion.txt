@@ -4,13 +4,12 @@ nombre: Micol Michanie
 Fase 1
 En esta fase la bomba recibe un string y lo compara con un string esperado usando strings_not_equal.
 En caso de que sean distintos, la bomba explota. En caso contrario, no explota. Se accedio al registro 
-rsi para obtener el string esperado con un breakpoint en strings_not_equal.
+rsi usando  x/s  para obtener el string esperado con un breakpoint en strings_not_equal.
 
 Respuesta: Junta esperencia en la vida  Porque nada ensenha tanto Como el sufrir y el llorar
 
 Fase 2
-Se recibe un string con dos números y después llama a misterio con tres parámetros:
-primer_numero_ingresado, primer_numero_ingresado, segundo_numero_ingresado. Básicamente las condiciones que tienen que cumplirse para que la bomba no explote son:
+Se recibe un string con dos números y después llama a misterio que ejecuta una serie de operaciones aritmeticas sobre los parametros de entrada. Básicamente las condiciones que tienen que cumplirse para que la bomba no explote son:
     a - Haber exactamente 11 bits en 1 en primer_numero_ingresado
     b - primer_numero_ingresado XOR segundo_numero_ingresado < 0 (bit mas significativo en 1)
 Si ambas caracteristicas se cumplen, se pasa la fase 2. Sino, explota.
