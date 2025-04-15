@@ -20,7 +20,7 @@ string_proc_list* string_proc_list_create(void){
  */
 string_proc_node* string_proc_node_create(uint8_t type, char* hash){
     string_proc_node* node = (string_proc_node*)malloc(sizeof(string_proc_node));
-    if(node == NULL or hash == NULL){
+    if(node == NULL || hash == NULL){
         return NULL;
     }
     node->type = type;
@@ -66,7 +66,7 @@ char* string_proc_list_concat(string_proc_list* list, uint8_t type , char* hash)
     if(list == NULL || hash == NULL){
         return NULL;
     }
-    
+
     char* result = str_concat("", hash);
 
     string_proc_node* current = list->first;
