@@ -118,7 +118,7 @@ string_proc_list_concat_asm:
     sub     rsp, 64
     mov     QWORD [rbp-40], rdi      ;puntero a la lista
     mov     eax, esi
-    mov     QWORD [rbp-56], rdx      ;puntero a la cadena principal
+    mov     QWORD [rbp-56], rdx      
     mov     BYTE [rbp-44], al       ;carácter de comparación
 
     ;llamo a str_concat(empty_string, main_string)

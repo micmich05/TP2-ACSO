@@ -2,18 +2,19 @@ mail: mmichanie@udesa.edu.ar
 nombre: Micol Michanie
 
 Fase 1
-En esta fase la bomba recibe un string y lo compara con un string esperado usando strings_not_equal.
+En esta fase la bomba recibe un string y lo compara con un string esperado usando strings_not_equal. Se  carga en el registro rsi la dirección calculada como rip+0xc7c62.
 En caso de que sean distintos, la bomba explota. En caso contrario, no explota. Se accedio al registro 
 rsi usando  x/s  para obtener el string esperado con un breakpoint en strings_not_equal.
 
 Respuesta: Junta esperencia en la vida  Porque nada ensenha tanto Como el sufrir y el llorar
 
 Fase 2
-Se recibe un string con dos números y después llama a misterio que ejecuta una serie de operaciones aritmeticas sobre los parametros de entrada. Básicamente las condiciones que tienen que cumplirse para que la bomba no explote son:
-    a - Haber exactamente 11 bits en 1 en primer_numero_ingresado
+Se recibe un string con dos números enteros: primer_numero_ingresado y segundo_numero_ingresado. La logica principal de la clase de da cuando llama a una funcion misterio que ejecuta una serie de operaciones aritmeticas sobre los parametros de entrada. Básicamente las condiciones que tienen que cumplirse para que la bomba no explote son:
+    a - Haber exactamente 11 bits -guarda 0xa en edx- en primer_numero_ingresado
     b - primer_numero_ingresado XOR segundo_numero_ingresado < 0 (bit mas significativo en 1)
 Si ambas caracteristicas se cumplen, se pasa la fase 2. Sino, explota.
-Una solucion sencilla es: 2047 (11 unos exactamente) y 2147485695 (en ese orden)
+Una solucion sencilla es: 2047 (11 unos exactamente) y 2147485695 (en ese orden). En particular, 
+11111111111 XOR 10000000000000000000011111111111 = 10000000000000000000000000000000 (bit más significativo en 1, negativo). Los parametros que recibe la funcion misterio son en los registros 
 
 Respuesta: 2047 2147485695
 
