@@ -80,7 +80,7 @@ string_proc_list_add_node_asm:
 
     ;si head == 0 esta vacia
     mov     rax, QWORD [rbp-24]
-    mov     rax, QWORD [rax]         ;obtiene la cabeza de la lista
+    mov     rax, QWORD [rax]         ;cabeza de la lista
     test    rax, rax
     jne     .update_existing       ;si no es cero, la lista ya tiene elementos
 
@@ -119,7 +119,7 @@ string_proc_list_concat_asm:
     mov     QWORD [rbp-40], rdi      ;puntero a la lista
     mov     eax, esi
     mov     QWORD [rbp-56], rdx      
-    mov     BYTE [rbp-44], al       ;carácter de comparación
+    mov     BYTE [rbp-44], al       ;para la comparación
 
     ;llamo a str_concat(empty_string, main_string)
     mov     rax, QWORD [rbp-56]
