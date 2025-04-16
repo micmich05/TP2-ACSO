@@ -5,7 +5,7 @@ def soluciones_validas(path_palabras):
     realiza una búsqueda binaria simulada sobre cada palabra para determinar 
     cuántas iteraciones toma encontrarla. Retorna una lista de todas las (palabra, iteraciones)
     que cumplan con las restricciones:
-      - La palabra se encuentra en 7..10 iteraciones (ambos inclusive).
+      - La palabra se encuentra en 7..11 iteraciones (ambos inclusive).
     Se imprimen las palabras que cumplen con la condición de ser "soluciones posibles".
     """
 
@@ -38,7 +38,7 @@ def soluciones_validas(path_palabras):
             else:
                 derecha = medio - 1
 
-        if encontrado and 7<= iteraciones <= 10:
+        if encontrado and 7<= iteraciones <= 11:
             soluciones.append((objetivo, iteraciones))
 
     return soluciones
