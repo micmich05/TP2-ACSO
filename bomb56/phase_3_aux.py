@@ -43,7 +43,6 @@ def soluciones_validas(path_palabras):
 
     return soluciones
 
-#Ejemplo de uso:
 path = "/Users/micolmichanie/Documents/TP2-ACSO/bomb56/palabras.txt"
 resultado = soluciones_validas(path)
 print(resultado)
